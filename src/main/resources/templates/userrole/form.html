@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil ABM</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/fafb81db9e.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Responsive navbar-->
+    <nav th:replace="general.html :: nav"></nav>
+    <!-- Main -->
+    <div class="container my-4 d-flex justify-content-center">
+        <div class="col-12 col-lg-8 col-xl-7">
+            <form th:action="@{/userrole/newUserRole}" th:object="${userRole}" method="POST">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>
+                            <span th:unless="${edit}">Agregar</span>
+                            <span th:if="${edit}">Editar</span>
+                        </h3>	
+                    </div>
+                    <div class="card-body">
+                        <input type="hidden" th:field="*{id}">
+                        <input type="hidden" th:field="*{activo}">
+                        <input type="hidden" name="edit" th:value="${edit}">
+                        <div class="form-group">
+                            <label>Nombre del perfil</label>
+                            <input th:field="*{role}" type="text" class="form-control" required>
+                            <p class="error text-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role tiene errores</p>
+                           </div>
+                       </div>
+                    <div class="card-footer">
+                        <input class="btn btn-success" type="submit" value="Guardar">
+                        <a class="btn btn-secondary pl-2" th:href="@{/userrole/abm}">Volver</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer th:replace="general.html :: footer"></footer>
+    <!-- Footer -->
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

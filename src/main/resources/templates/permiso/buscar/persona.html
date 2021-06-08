@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar permiso por persona</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/css/permiso/form1.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Responsive navbar-->
+    <nav th:replace="general.html :: nav"></nav>
+    <!-- Page content-->
+    <div class="container my-4 d-flex justify-content-center">
+        <div class="col-12 col-lg-8 col-xl-7">
+            <!-- Formulario buscar por persona -->
+            <div class="container mt-4">
+                <form th:action="@{/permiso/buscar/porpersona}" th:object="${ppfm}" method="POST">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>
+                                <span>Buscar por persona</span>
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Documento</label>
+                                <div class="row">
+                                    <div class="col-sm-4 col-lg-3">
+                                        <select class="form-select" th:field="*{tipoDocumento}">
+                                            <option th:each="tipodoc : ${lstTipoDoc}" th:value="${tipodoc}"
+                                                th:text="${tipodoc}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-8 col-lg-9">
+                                        <input th:field="*{documento}" type="number" class="form-control" required>
+                                    </div>
+                                </div>
+                                <p class="error text-danger" th:if="${#fields.hasErrors('documento')}" th:errors="*{documento}">Documento tiene errores</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <input id="submit-btn" type="submit" value="Buscar" class="btn btn-success">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer th:replace="general.html :: footer"></footer>
+    <!-- Footer -->
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JS -->
+    <script src="/js/permiso/form1.js"></script>
+</body>
+
+</html>

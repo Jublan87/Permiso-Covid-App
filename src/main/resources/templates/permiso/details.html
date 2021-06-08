@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Grupo21</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/css/permiso/details.css" rel="stylesheet" />
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/fafb81db9e.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="page-top">
+    <!-- Responsive navbar-->
+    <nav th:replace="general.html :: nav"></nav>
+
+    <!-- Header-->
+    <header class="text-white header-details bg-gradient" th:classappend="${activo ? 'bg-success' : 'bg-danger'}">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="d-flex flex-row align-items-center justify-content-center">
+                        <i th:if="${activo}" class="far fa-thumbs-up fa-3x"></i>
+                        <i th:unless="${activo}" class="far fa-thumbs-down fa-3x"></i>
+                        <span class="sep"></span>
+                        <h1 th:if="${activo}" class="fw-bolder">Podés circular</h1>
+                        <h1 th:unless="${activo}" class="fw-bolder">No podés circular</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Details -->
+    <div class="container px-4 mt-4 col-md-8 col-lg-6 col-xl-5">
+        <div class="row">
+            <div class="col">
+                <p class="fw-bold mb-0">
+                    <span th:text="${permiso.pedido.nombre} + ' '"/>
+                    <span class="text-uppercase" th:text="${permiso.pedido.apellido}"/>
+                </p>
+                <p th:text="${permiso.pedido.tipoDocumento} + ' ' + ${permiso.pedido.documento}"></p>
+                <p th:text="${permiso.pedido.email}"></p>
+                <p class="text-muted qr-desc">Escaneá el código QR para acceder al permiso digital desde tu celular</p>
+            </div>
+            <div class="col-auto">
+                <img class="outline-inset mb-2 rounded" th:src="@{/permiso/getqr/} + ${permiso.idPermiso}" width="200" height="200">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <p class="fw-bold" th:classappend="${activo ? 'text-success' : 'text-danger'}" th:unless="${esDiario}" th:text="'Valido entre ' + ${T(com.unla.grupo21.helpers.Funciones).traerFechaCorta(permiso.fecha)} + ' y ' + ${T(com.unla.grupo21.helpers.Funciones).traerFechaCorta(fechaHasta)}"></p>
+                <p class="fw-bold" th:classappend="${activo ? 'text-success' : 'text-danger'}" th:if="${esDiario}" th:text="'Valido el día ' + ${T(com.unla.grupo21.helpers.Funciones).traerFechaCorta(permiso.fecha)}"></p>
+
+                <p class="mb-0" th:text="${permiso.desdeHasta[0].lugar} + ' ↔ ' + ${permiso.desdeHasta[1].lugar}"></p>
+                <p th:unless="${esDiario}" th:text="'MOTIVO: ' + ${permiso.vacaciones ? 'Vacaciones' : 'N/A'}"></p>
+                <p th:if="${esDiario}" th:text="'MOTIVO: ' + ${permiso.motivo}"></p>
+            </div>
+        </div>
+        <hr th:unless="${esDiario}">
+        <div th:unless="${esDiario}" class="row">
+            <div class="col">
+                <p class="fw-bold mb-0" th:text="${permiso.rodado.vehiculo}">
+                <p th:text="${permiso.rodado.dominio}">
+            </div>
+        </div>
+
+        <div class="py-4 text-center">
+            <a class="btn btn-secondary" th:href="@{/}">Volver al inicio</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer th:replace="general.html :: footer"></footer>
+    <!-- Footer -->
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

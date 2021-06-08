@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Grupo21</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/css/permiso/form1.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Responsive navbar-->
+    <nav th:replace="general.html :: nav"></nav>
+    <!-- Page content-->
+    <div class="container my-4 d-flex justify-content-center">
+        <div class="col-12 col-lg-8 col-xl-7">
+            <!-- Formulario buscar entre fechas -->
+            <div class="container mt-4">
+                <form th:action="@{/permiso/buscar/activeDates}" th:object="${model}" method="POST">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>
+                                <span>Buscar entre fechas</span>
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Desde</label>
+                                <input th:field="*{startDate}" type="date" class="form-control" required>
+                            </div>
+                            <div class="form-group pt-2">
+                                <label>Hasta</label>
+                                <input th:field="*{endDate}" type="date" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <input id="submit-btn" type="submit" value="Buscar" class="btn btn-success">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Formulario buscar entre fechas y lugares -->
+            <div class="container mt-4">
+                <form th:action="@{/permiso/buscar/activeDatesPlaces}" th:object="${model}" method="POST">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>
+                                <span>Buscar entre fechas y lugares</span>
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group pt-2">
+                                <label>Desde</label>
+                                <input th:field="*{startDate}" type="date" class="form-control" required>
+                            </div>
+                            <div class="form-group pt-2">
+                                <label>Hasta</label>
+                                <input th:field="*{endDate}" type="date" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 pt-2">
+                                        <label>Lugar</label>
+                                        <select class="form-select" th:field="*{lugarModel}" required>
+                                            <option th:each="lugar : ${model.lugaresModel}" th:value="${lugar.id}"
+                                                th:text="${lugar.lugar}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 pt-2">
+                                        <label>Ubicación</label>
+                                        <div class="form-control no-borders">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" th:field="*{desde}" id="radio1" th:value="true" checked>
+                                                <label class="form-check-label" for="radio2">Origen</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" th:field="*{desde}" id="radio2" th:value="false">
+                                                <label class="form-check-label" for="radio2">Destino</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <input id="submit-btn" type="submit" value="Buscar" class="btn btn-success">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <!-- Footer -->
+    <footer th:replace="general.html :: footer"></footer>
+    <!-- Footer -->
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

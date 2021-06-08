@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grupo21 - Login</title>
+<!-- Custom styles for this template -->
+<link rel="stylesheet" href="/css/styles.css">
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+</head>
+<body>
+
+	<!-- Responsive navbar-->
+	<nav th:replace="general.html :: nav"></nav>
+
+	<!-- Page content -->
+	<main class="login-form">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-8 col-lg-6">
+					<h1 class="display-6 alert alert-info">Logout exitoso.</h1>
+					<div class="card">
+						<div class="card-header">Login</div>
+						<div class="card-body">
+							<form th:action="@{/loginprocess}" method="post">
+
+								<div class="form-group row pb-2">
+									<label for="email_address"
+										class="col-md-4 col-form-label text-md-right">Usuario</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" name="username"
+											id="username" required autofocus />
+									</div>
+								</div>
+
+								<div class="form-group row pb-2">
+									<label for="password"
+										class="col-md-4 col-form-label text-md-right">Contraseña</label>
+									<div class="col-md-6">
+										<input type="password" class="form-control" name="password"
+											id="password" required />
+									</div>
+								</div>
+
+								<div class="alert alert-danger" th:if="${error != null}">Usuario
+									o contraseña incorrecta.</div>
+
+								<div class="row">
+									<div class="col-md-6 offset-md-4">
+										<button type="submit" class="btn btn-primary">
+											Ingresar</button>
+										<a href="/" class="btn btn-secondary ml-2"> Volver </a>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</main>
+
+    <!-- Footer -->
+    <footer th:replace="general.html :: footer"></footer>
+    <!-- Footer -->
+
+</body>
+</html>

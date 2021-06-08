@@ -1,0 +1,22 @@
+.header-details {
+    padding-top: 4.5rem;
+    padding-bottom: 3rem;
+}
+
+.sep{
+    width: 1.5rem;
+}
+
+.outline-inset {
+    outline: 1px solid rgba(0,0,0,0.25);
+}
+
+.qr-desc {
+    display: none;
+}
+
+@media screen and (min-width : 576px) {
+    .qr-desc {
+        display: block;
+    }
+}

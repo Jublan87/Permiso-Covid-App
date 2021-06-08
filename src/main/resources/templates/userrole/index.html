@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfiles</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/fafb81db9e.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Responsive navbar-->
+    <nav th:replace="general.html :: nav"></nav>
+    <!-- Main -->
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-md-6">
+                <div th:if="${abm}" class="row mb-2 align-items-center">
+                    <div class="col-auto">
+                        <a th:href="@{new}" class="btn btn-primary"><i class="fas fa-user-plus"></i> Agregar</a>
+                    </div>
+                    <div class="col-auto">
+                        <div class="form-check">
+                            <form id="checkInactivos" th:action="@{/userrole/abm}" th:method="get">
+                                <input type="hidden" name="cambio" value="true" />
+                                <input class="form-check-input" onChange="this.form.submit()" type="checkbox" th:checked="${session.userroles_inactivos_show}">
+                            </form>
+                            <label class="form-check-label" for="inlineCheckbox1">Mostrar inactivos</label>
+                        </div>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th th:if="${abm}">Activo</th>
+                            <th th:if="${abm}">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="userRole : ${userRoles}" th:class="${userRole.activo ? '' : 'table-secondary text-muted'}">
+                            <td><span th:text="${userRole.role}" /></td>
+                            <td th:if="${abm}" th:text="${userRole.activo ? 'Sí' : 'No'}"></td>
+                            <td th:if="${abm}">
+                                <!-- Si userrole activo -->
+                                <a th:if="${userRole.activo}" th:href="@{edit/(id=${userRole.id})}" class="btn btn-warning"><i class="fas fa-user-edit"></i> <span class="d-none d-md-inline">Editar</span></a>
+                                <a th:if="${userRole.activo}" th:href="@{delete/}+${userRole.id}" class="btn btn-danger"><i class="fas fa-user-times"></i> <span class="d-none d-lg-inline">Eliminar</span></a>
+                                <!-- Si userrole inactivo -->
+                                <a th:if="${!userRole.activo}" href="#" class="btn btn-secondary"><i class="fas fa-user-edit"></i> <span class="d-none d-md-inline">Editar</span></a>
+                                <a th:if="${!userRole.activo}" th:href="@{restore/}+${userRole.id}" class="btn btn-success"><i class="fas fa-user-check"></i> <span class="d-none d-lg-inline">Reactivar</span></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Error!</h4>
+                <button type="button" class="btn btn-default close modalbtn" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="error">No se pueden eliminar perfiles asignados a usuarios activos.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default modalbtn" data-dismiss="modal">Cerrar</button>
+            </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer th:replace="general.html :: footer"></footer>
+    <!-- Footer -->
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script de error -->
+    <script th:if="${(param.error != null) and (param.error[0] == 'true')}" src="/js/userrole/index.js"></script>
+</body>
+</html>

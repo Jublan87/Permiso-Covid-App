@@ -1,0 +1,58 @@
+.header-index {
+    position: relative;
+    padding-top: 9rem;
+    padding-bottom: 6rem;
+    background-image: url('/imgs/index-thumb.jpg');
+    background-position: center 55%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+  }
+  
+  .header-bg {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    opacity: 0;
+    background-position: center 55%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    -webkit-transition: opacity 0.5s linear;
+    -moz-transition: opacity 0.5s linear;
+     -ms-transition: opacity 0.5s linear;
+      -o-transition: opacity 0.5s linear;
+         transition: opacity 0.5s linear;
+    z-index: 1;
+  }
+  
+  .header-bg.show {
+    opacity: 1;
+  }
+
+  .header-bg-trama {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background-repeat: repeat;
+    background-image: url('/imgs/trama.png');
+    z-index: 2;
+  }
+  
+  .titulo{
+    background-color: rgba(33,37,41,0.5);
+    z-index: 3;
+  }
+  
+  .section-index {
+    padding: 4rem 0 2rem 0;
+  }
+
+  @media (max-width: 992px){
+
+    .header-index {
+      padding-top: 4.5rem;
+      padding-bottom: 3rem;
+    }
+  
+    .lead {
+      font-size: inherit;
+    }
+  }

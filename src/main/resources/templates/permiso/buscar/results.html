@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Grupo21</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Responsive navbar-->
+    <nav th:replace="general.html :: nav"></nav>
+    <!-- Page content-->
+    <div class="container my-4">
+
+        <div class="row mb-3">
+            <h3 class="mb-0">Resultados de búsqueda</h3>
+            <h5 class="fw-light text-muted" th:text="${searchDesc}"></h5>
+        </div>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Tipo</th>
+                    <th>Documento</th>
+                    <th>Fecha</th>
+                    <th>Días</th>
+                    <th>Vehículo</th>
+                    <th>Desde</th>
+                    <th>Hasta</th>
+                    <th>Motivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="permiso : ${lstPermisos}" th:attr="data-href=@{/permiso/detalle/}+${permiso.idPermiso}">
+                    <td><span th:text="${permiso.pedido.nombre}" /></td>
+                    <td><span th:text="${permiso.pedido.apellido}" /></td>
+                    <td><span th:text="${permiso.pedido.tipoDocumento}" /></td>
+                    <td><span th:text="${permiso.pedido.documento}" /></td>
+                    <td><span th:text="${T(com.unla.grupo21.helpers.Funciones).traerFechaCorta(permiso.fecha)}" /></td>
+                    <td>
+                        <span th:if="${permiso instanceof T(com.unla.grupo21.models.PermisoDiarioModel)}" th:text="1" />
+                        <span th:if="${permiso instanceof T(com.unla.grupo21.models.PermisoPeriodoModel)}" th:text="${permiso.cantDias}" />
+                    </td>
+                    <td>
+                        <span th:if="${permiso instanceof T(com.unla.grupo21.models.PermisoDiarioModel)}" th:text="'N/A'" />
+                        <span th:if="${permiso instanceof T(com.unla.grupo21.models.PermisoPeriodoModel)}" th:text="${permiso.rodado.dominio}" th:title="${permiso.rodado.vehiculo}" />
+                    </td>
+                    <td th:each="lugar : ${permiso.desdeHasta}">
+                        <span th:text="${lugar.lugar}" />
+                    </td>
+                    <td>
+                        <span th:if="${permiso instanceof T(com.unla.grupo21.models.PermisoDiarioModel)}" th:text="${#strings.abbreviate(permiso.motivo,30)}" th:title="${permiso.motivo}" />
+                        <span th:if="${permiso instanceof T(com.unla.grupo21.models.PermisoPeriodoModel)}" th:text="${permiso.vacaciones} ? 'Vacaciones' : 'N/A'" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center text-muted mb-4" th:if="${#lists.isEmpty(lstPermisos)}">No hay resultados para mostrar</div>
+
+        <div class="pt-4 text-center">
+            <a class="btn btn-secondary" href="javascript:history.back()">Volver</a>
+        </div>
+        
+    </div>
+    <!-- Footer -->
+    <footer th:replace="general.html :: footer"></footer>
+    <!-- Footer -->
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JS -->
+    <script src="/js/permiso/buscar/results.js"></script>
+</body>
+
+</html>
