@@ -11,3 +11,9 @@ Javascript
 Esta subida y funcionando por medio de heroku, el enlace es: 
 
 https://tp-oo2-grupo21.herokuapp.com/index
+
+Para acceder a funcionalidades extra de la app correspondiente a perfiles especificos usar los siguientes usuarios:
+
+-	El usuario administrador tiene el username “admin1” y la password es “123456”.
+-	El usuario auditor tiene el username “auditor1” y la password es “654321”.
+
